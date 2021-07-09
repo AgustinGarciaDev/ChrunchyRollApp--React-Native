@@ -50,7 +50,6 @@ const SingIn = () => {
                     <Button
                         title="Crear cuenta"
                         color="black"
-
                         accessibilityLabel="Crear Cuenta"
                     />
                 </TouchableOpacity>
