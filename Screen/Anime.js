@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ImageBackground, Alert, Modal, FlatList, Text, View, Image, StyleSheet, TouchableOpacity, Button, ScrollView } from "react-native";
+import { ImageBackground, Alert, Modal, Text, View, StyleSheet, TouchableOpacity, Button, ScrollView } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,7 +11,7 @@ const Tab = createMaterialTopTabNavigator();
 const Anime = () => {
     const [modalVisible, setModalVisible] = useState(false)
     const [modalRaiting, setModalRaiting] = useState(false)
-    const [modalOrderCap, setModalOrdenCap] = useState(false)
+
     return (
         <>
             <ScrollView style={styles.container}>
@@ -80,19 +80,18 @@ const Anime = () => {
                         </Modal>
                     </View>
                 </View>
-                <NavigationContainer style={{ width: "100%" }}>
-                    <Tab.Navigator
-                        tabBarOptions={{
-                            activeTintColor: '#24252A',
-                            labelStyle: { fontWeight: 'bold', fontSize: 12, color: 'white' },
-                            style: { backgroundColor: '#24252A' },
-                            indicatorStyle: { backgroundColor: '#FF6500' },
-                        }}
-                    >
-                        <Tab.Screen name="EPISODIOS" component={ListCapAnime} />
-                        <Tab.Screen name="MAS COMO ESTO" component={OtherAnime} />
-                    </Tab.Navigator>
-                </NavigationContainer>
+
+                <Tab.Navigator
+                    tabBarOptions={{
+                        activeTintColor: '#24252A',
+                        labelStyle: { fontWeight: 'bold', fontSize: 12, color: 'white' },
+                        style: { backgroundColor: '#24252A' },
+                        indicatorStyle: { backgroundColor: '#FF6500' },
+                    }}
+                >
+                    <Tab.Screen name="EPISODIOS" component={ListCapAnime} />
+                    <Tab.Screen name="MAS COMO ESTO" component={OtherAnime} />
+                </Tab.Navigator>
             </ScrollView >
             <View style={styles.footerFloting}>
                 <TouchableOpacity style={styles.buttonPlay}>

@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import { ImageBackground, FlatList, Text, View, Image, StyleSheet, TouchableOpacity, Button, ScrollView } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import BoxAnime from "../Components/BoxAnime";
+import { data } from '../data'
 
-const Home = () => {
 
-    const anime = [
-        { id: 1, nombre: "One piece", url: 'https://user-images.githubusercontent.com/66225450/124844548-f717ed80-df6a-11eb-96a8-291abe240402.jpg' },
-        { id: 2, nombre: "One piece", url: 'https://ramenparados.com/wp-content/uploads/2020/12/Cheat-Kusushi-no-Slow-Life-poster-300x426.jpg' },
-        { id: 3, nombre: "One piece", url: 'https://user-images.githubusercontent.com/66225450/124844548-f717ed80-df6a-11eb-96a8-291abe240402.jpg' },
-        { id: 4, nombre: "One piece", url: 'https://user-images.githubusercontent.com/66225450/124844548-f717ed80-df6a-11eb-96a8-291abe240402.jpg' },
-    ]
+const Home = (props) => {
+
     const _renderItem = ({ item, index }) => {
         return (
-            < View key={item.id} style={styles.slide} >
-                <ImageBackground source={{ uri: item.url }} style={styles.imageCarrousel}>
+            < View key={index} style={styles.slide} >
+                <ImageBackground source={{ uri: item.cover }} style={styles.imageCarrousel}>
                 </ImageBackground>
                 <View style={styles.containerNameAnime}>
-                    <Text style={styles.textNameAnime}  >{item.nombre}</Text>
+                    <Text style={styles.textNameAnime}  >{item.name}</Text>
                     <Text style={styles.textFlat}>SERIES</Text>
                 </View>
             </View >
@@ -28,7 +25,7 @@ const Home = () => {
         <ScrollView style={styles.container}>
             <View >
                 <ImageBackground
-                    source={{ uri: "https://user-images.githubusercontent.com/66225450/124844548-f717ed80-df6a-11eb-96a8-291abe240402.jpg" }}
+                    source={{ uri: "https://wallpaperaccess.com/full/5872640.jpg" }}
                     resizeMode="cover"
                     style={styles.image}>
                     <LinearGradient
@@ -37,9 +34,12 @@ const Home = () => {
                         colors={['rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 0.1)']}
                         style={styles.linearGradient}>
                         <View style={styles.containerTextCover}>
-                            <Text style={styles.textCoverTitle}>Tokyo Revengers</Text>
-                            <Text style={styles.subTextCoverTitle}>Takemichi Hanagaki es un trabajador que ha tocado fondo en la vida. Entonces descubre que la única novia que tuvo jamás, en sus años de secundaria,</Text>
-                            <TouchableOpacity style={styles.buttonCover}>
+                            <Text style={styles.textCoverTitle}>To Your Eternity</Text>
+                            <Text style={styles.subTextCoverTitle}>  Al prinicipio el "orbe" llego a la Tierra. Podia hacer dos cosas: tomar la forma de cualquier cosa con la que inter...</Text>
+                            <TouchableOpacity
+                                style={styles.buttonCover}
+                                onPress={() => { props.navigation.navigate('Anime') }}
+                            >
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <Icon name="play" size={30} color="#000" />
                                     <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>VER AHORA</Text>
@@ -55,36 +55,46 @@ const Home = () => {
 
             <View>
                 <FlatList
-                    data={anime}
+                    data={data}
                     renderItem={_renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item, index) => index}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />
             </View>
-            <Text>Hola</Text>
-            <View style={{ margin: 10 }}>
-                <Image
-                    source={{ uri: 'https://lh3.googleusercontent.com/proxy/fq4HAE-F8VUivBeLn8kiWbpxPkQglKurGhxBP_7MA5s4jJkC6l5nIECcrVMwh2cHl5Ky713Xu0qty4HjThd4FE969pwoWioQVpdHb2f1ZP8N0g' }}
-                    resizeMode="cover"
-                    style={styles.BoxImageAbove}
+            <BoxAnime
+                name={'Drug Store in Another Worl..'}
+                img={'https://user-images.githubusercontent.com/66225450/125543230-7d120643-e3b2-4dca-9970-35f144c4eaab.png'}
+                cover={'https://ramenparados.com/wp-content/uploads/2020/12/Cheat-Kusushi-no-Slow-Life-poster-300x426.jpg'}
+            />
+            <View>
+                <FlatList
+                    data={data}
+                    renderItem={_renderItem}
+                    keyExtractor={(item, index) => index}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
                 />
-                <View style={styles.boxBelow}>
-                    <View>
-                        <Image
-                            source={{ uri: 'https://ramenparados.com/wp-content/uploads/2020/12/Cheat-Kusushi-no-Slow-Life-poster-300x426.jpg' }}
-                            resizeMode="cover"
-                            style={styles.BoxPortAnime}
-                        />
-                    </View>
-                    <View style={styles.boxText}>
-                        <Text style={styles.boxTextTitle}>Drug Store in Another Worl..</Text>
-                        <View>
-                            <Text style={styles.boxTextSubTitle} >SERIES</Text>
-                        </View>
-                    </View>
-                </View>
             </View>
+            <BoxAnime
+                name={'Boruto'}
+                img={'https://img1.ak.crunchyroll.com/i/spire4/d11aa2cec683c50999692fe7487031ba1625611358_main.png'}
+                cover={'https://img1.ak.crunchyroll.com/i/spire2/08f56c89d059aa0fc6e12eb38e42008f1625652299_full.jpg'}
+            />
+            <View>
+                <FlatList
+                    data={data}
+                    renderItem={_renderItem}
+                    keyExtractor={(item, index) => index}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
+            <BoxAnime
+                name={'That Time I Got Reincarnat...'}
+                img={'https://estrenos.news/wp-content/uploads/2021/01/1611750945_1_That-Time-I-Got-Reincarnated-as-a-Slime-Temporada-2.jpg'}
+                cover={'https://img1.ak.crunchyroll.com/i/spire4/a6470bd841a667e7d5f09999a1e1a29b1625651770_full.jpg'}
+            />
 
         </ScrollView>
     )
@@ -117,14 +127,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF5C00'
     },
     containerTextCover: {
-        height: 180
+        height: 180,
     },
     textCoverTitle: {
         color: 'white',
         fontSize: 20
     },
     imageCarrousel: {
-        width: 140,
+        width: 170,
         height: 250,
         marginLeft: 10,
         marginRight: 10
@@ -136,8 +146,8 @@ const styles = StyleSheet.create({
     },
     containerNameAnime: {
         backgroundColor: '#213945',
-        width: "88%",
-        height: 70,
+        width: 170,
+        height: 80,
         padding: 5,
         marginLeft: 10,
         marginRight: 10,
@@ -151,35 +161,9 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     textFlat: {
-        color: '#1387A5'
+        color: '#00FFEE'
     },
-    BoxImageAbove: {
-        width: "100%",
-        height: 200
-    },
-    boxBelow: {
-        backgroundColor: '#213945',
-        height: 200,
-        flexDirection: 'row'
-    },
-    BoxPortAnime: {
-        width: 140,
-        height: 250,
-        position: 'relative',
-        left: 10,
-        bottom: 60
-    },
-    boxText: {
-        justifyContent: 'space-around',
-        position: 'relative',
-        left: 20,
-    },
-    boxTextTitle: {
-        color: 'white'
-    },
-    boxTextSubTitle: {
-        color: '#1387A5'
-    }
+
 })
 
 export default Home
