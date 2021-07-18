@@ -1,22 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ImageBackground, Alert, Modal, Text, View, StyleSheet, TouchableOpacity, Button, ScrollView } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ListCapAnime from "../Components/ListCapAnime";
 import OtherAnime from "../Components/OtherAnime";
-
+import { data } from '../data'
 const Tab = createMaterialTopTabNavigator();
-const Anime = () => {
+
+const Anime = (props) => {
+
+    const [foundAnime, setFoundAnime] = useState({
+        loading: true,
+        anime: null
+    })
     const [modalVisible, setModalVisible] = useState(false)
     const [modalRaiting, setModalRaiting] = useState(false)
+
+    useEffect(() => {
+        const idAnime = props.route.params.id
+        let searchAnime = data.find(item => item._id === idAnime)
+        setFoundAnime({ loading: false, anime: searchAnime })
+
+    }, [])
+
+    const { loading, anime } = foundAnime
+
+    if (loading) {
+
+        return (
+            <Text style={{ color: 'white', fontSize: 40 }}>LOADING PA</Text>
+        )
+    }
+
 
     return (
         <>
             <ScrollView style={styles.container}>
                 <ImageBackground
-                    source={{ uri: "https://wallpaperaccess.com/full/5872640.jpg" }}
+                    source={{ uri: anime.cover }}
                     resizeMode="cover"
                     style={styles.image}>
                     <LinearGradient
@@ -28,7 +50,7 @@ const Anime = () => {
                 </ImageBackground>
                 <View style={styles.containerMainContent}>
                     <View style={styles.containerTextCover}>
-                        <Text style={styles.textCoverTitle}>To Your Eternity</Text>
+                        <Text style={styles.textCoverTitle}>{anime.name}</Text>
                         <Text style={styles.subCoverTitle}>SERIES</Text>
                         <View style={styles.containerRating}>
                             <Icon style={{ marginRight: 3, marginLeft: 3 }} name="star" size={30} color="#CFD0D2" />
@@ -39,8 +61,11 @@ const Anime = () => {
                             <Text style={{ marginRight: 3, marginLeft: 3 }} style={styles.textRating}>Media: 4.9(4,6K)</Text>
                             <Icon style={{ marginRight: 3, marginLeft: 3 }} name="caret-down" size={20} color="#CFD0D2" />
                         </View>
-                        <Text style={styles.textDescription}>
-                            Al prinicipio el "orbe" llego a la Tierra. Podia hacer dos cosas: tomar la forma de cualquier cosa con la que inter...
+                        <Text
+                            numberOfLines={3}
+                            style={styles.textDescription}
+                        >
+                            {anime.description}
                         </Text>
                         <TouchableOpacity
                             style={styles.btnDetails}
@@ -54,7 +79,6 @@ const Anime = () => {
                             transparent={true}
                             visible={modalVisible}
                             onRequestClose={() => {
-                                Alert.alert("Modal has been closed.");
                                 setModalVisible(!modalVisible);
                             }} >
                             <View style={styles.modalStyle}>
@@ -62,14 +86,14 @@ const Anime = () => {
                                     <TouchableOpacity onPress={() => setModalVisible(false)} >
                                         <Icon style={{ marginRight: 10, marginLeft: 10 }} name="times" size={30} color="white" />
                                     </TouchableOpacity>
-                                    <Text style={{ color: 'white', marginLeft: 20, fontSize: 20 }}>To your Eternity</Text>
+                                    <Text style={{ color: 'white', marginLeft: 20, fontSize: 20 }}>{anime.name}</Text>
                                 </View>
                                 <Text style={styles.textModal}>
-                                    Al principio el "orbe" llegó a la Tierra. Podía hacer dos cosas: tomar la forma de cualquier cosa con la que interactuara y regenerarse para volver a la vida. El orbe se convirtió en roca, luego en lobo y finalmente en un chico, pero vaga por el mundo como un recién nacido que no sabe nada. Como niño se convierte en Fushi. Poco a poco va conociendo la amabilidad humana y Fushi no solo aprende a sobrevivir, sino que crece como "persona". Pero su viaje queda ensombrecido por Nokker, un destructivo e inexplicable enemigo, así como por las crueles depedidas de aquellos a quienes ama.
+                                    {anime.description}
                                 </Text>
                                 <View style={styles.containerEpAndEd}>
                                     <Text style={styles.titleModalEp}>Episodios Totales</Text>
-                                    <Text style={styles.textModalEp}>42</Text>
+                                    <Text style={styles.textModalEp}>{anime.Chapter.length}</Text>
                                 </View>
                                 <View style={styles.separator}></View>
                                 <View style={styles.containerEpAndEd}>
@@ -89,8 +113,16 @@ const Anime = () => {
                         indicatorStyle: { backgroundColor: '#FF6500' },
                     }}
                 >
-                    <Tab.Screen name="EPISODIOS" component={ListCapAnime} />
-                    <Tab.Screen name="MAS COMO ESTO" component={OtherAnime} />
+                    <Tab.Screen
+                        name="EPISODIOS"
+                        component={ListCapAnime}
+                        initialParams={{ arrayItem: anime }}
+                    />
+                    <Tab.Screen
+                        name="MAS COMO ESTO"
+                        component={OtherAnime}
+
+                    />
                 </Tab.Navigator>
             </ScrollView >
             <View style={styles.footerFloting}>

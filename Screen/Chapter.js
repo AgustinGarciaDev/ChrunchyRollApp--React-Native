@@ -1,11 +1,28 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Text, View, ImageBackground, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Video from 'react-native-video';
 import Comments from "../Components/Comments";
+import { data } from '../data'
 
+const Chapter = (props) => {
 
-const Chapter = () => {
+    const [ListChapters, setListChapters] = useState({
+        loading: true,
+        chapters: [],
+    })
+    const [chapter, setChapter] = useState(null)
+
+    useEffect(() => {
+        setListChapters({ loading: false, chapters: props.route.params.item })
+
+        if (ListChapters.chapters.length !== 0) {
+            console.log('Busquemos un cap')
+        }
+
+    }, [ListChapters])
+
 
     const text = "Un lobo acompaña fielmente a un joven que se quedó solo en su asentamiento mientras su familia se fue en busca del paraíso."
     const numberComments = 339

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { ImageBackground, FlatList, Text, View, Image, StyleSheet, TouchableOpacity, Button, ScrollView } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,15 +9,34 @@ import { data } from '../data'
 
 const Home = (props) => {
 
+    const [firsList, setFirstList] = useState([])
+    const [secondList, setSecondList] = useState([])
+    const [threeList, setThreeList] = useState([])
+
+    useEffect(() => {
+
+        const firstlist = data.filter(item => item.type === 'mostPopular')
+        const secondList = data.filter(item => item.type === 'chrunchyroll')
+        const threeList = data.filter(item => item.type === 'other')
+        setFirstList(firstlist)
+        setSecondList(secondList)
+        setThreeList(threeList)
+
+    }, [])
+
     const _renderItem = ({ item, index }) => {
         return (
-            < View key={index} style={styles.slide} >
+            <View key={index} style={styles.slide} >
                 <ImageBackground source={{ uri: item.cover }} style={styles.imageCarrousel}>
                 </ImageBackground>
-                <View style={styles.containerNameAnime}>
-                    <Text style={styles.textNameAnime}  >{item.name}</Text>
-                    <Text style={styles.textFlat}>SERIES</Text>
-                </View>
+                <TouchableOpacity
+                    onPress={() => { props.navigation.navigate('Anime', { id: item._id }) }}
+                >
+                    <View style={styles.containerNameAnime}>
+                        <Text style={styles.textNameAnime}  >{item.name}</Text>
+                        <Text style={styles.textFlat}>SERIES</Text>
+                    </View>
+                </TouchableOpacity>
             </View >
         )
     }
@@ -55,7 +75,7 @@ const Home = (props) => {
 
             <View>
                 <FlatList
-                    data={data}
+                    data={firsList}
                     renderItem={_renderItem}
                     keyExtractor={(item, index) => index}
                     horizontal
@@ -69,7 +89,7 @@ const Home = (props) => {
             />
             <View>
                 <FlatList
-                    data={data}
+                    data={secondList}
                     renderItem={_renderItem}
                     keyExtractor={(item, index) => index}
                     horizontal
@@ -83,7 +103,7 @@ const Home = (props) => {
             />
             <View>
                 <FlatList
-                    data={data}
+                    data={threeList}
                     renderItem={_renderItem}
                     keyExtractor={(item, index) => index}
                     horizontal

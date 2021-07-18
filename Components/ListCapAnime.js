@@ -2,41 +2,18 @@ import React, { useState } from "react";
 import { ImageBackground, TouchableWithoutFeedback, Alert, Modal, Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
+import { useEffect } from "react";
+import PreviewChapter from "./PreviewChapter";
 
 const ListCapAnime = (props) => {
     const [modalTemporates, setModalTemporates] = useState(false)
     const [modalSincronitation, setModalSincronitation] = useState(false)
     const [modalOrderCap, setModalOrdenCap] = useState(false)
+    const [listChapter, setListChapter] = useState([])
 
-    const listCap = [
-        {
-            title: 'S1 E1-El ultimo',
-            duration: '20m restantes',
-            cover: 'https://img1.ak.crunchyroll.com/i/spire2-tmb/dfd7bbad9b55b27b0d160b80dbb818f31618229842_wide.jpg'
-        },
-        {
-            title: 'S1 E2-Una niña inquieta',
-            duration: '20m restantes',
-            cover: 'https://img1.ak.crunchyroll.com/i/spire2-tmb/108a437e007b516fedde13427d2af32d1618825084_wide.jpg'
-        },
-        {
-            title: 'S1 E3-Una puqueña evolución',
-            duration: '20m restantes',
-            cover: 'https://img1.ak.crunchyroll.com/i/spire2-tmb/2fdac4440bb8aeae9cdf318f24a0635d1619434210_wide.jpg'
-        },
-        {
-            title: 'S1 E4-Un enorme recipiente',
-            duration: '20m restantes',
-            cover: 'https://img1.ak.crunchyroll.com/i/spire1-tmb/4ec5d161870f407217428271ff7210fd1620042481_wide.jpg'
-        },
-        {
-            title: 'S1 E5-Acompañante',
-            duration: '20m restantes',
-            cover: 'https://img1.ak.crunchyroll.com/i/spire4-tmb/c2b2e64c8bae83bc7199cca9012925e31620642491_wide.jpg'
-        }
-
-    ]
-
+    useEffect(() => {
+        setListChapter(props.route.params.arrayItem.Chapter)
+    }, [])
 
     return (
         <View style={styles.containerListAnime}>
@@ -158,35 +135,8 @@ const ListCapAnime = (props) => {
                 </Modal>
             </View>
             <View>
-
                 {
-                    listCap.map((chapter, index) => {
-
-                        return (
-                            <TouchableOpacity
-                                key={index}
-                                onPress={() => { props.navigation.navigate('Chapter') }}
-                            >
-                                <View style={styles.containerCap}>
-                                    <ImageBackground
-                                        source={{ uri: chapter.cover }}
-                                        resizeMode="cover"
-                                        style={styles.coverCap}>
-                                        <View style={styles.containerTimecap}>
-                                            <Text style={styles.capTime}>{chapter.duration}</Text>
-                                        </View>
-                                    </ImageBackground>
-                                    <View style={{ justifyContent: 'space-between', width: 220, padding: 10 }}>
-                                        <Text style={styles.capText}>{chapter.title}</Text>
-                                        <View style={{ alignItems: 'flex-end' }}>
-                                            <Icon style={{ marginRight: 5, marginLeft: 5, marginBottom: 10 }} name="arrow-alt-circle-down" size={24} color="white" />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        )
-
-                    })
+                    listChapter.map((chapter, index) => <PreviewChapter navigation={props.navigation} route={props.route} key={index} chapter={chapter} />)
                 }
             </View>
         </View>
@@ -214,32 +164,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
-    },
-    containerCap: {
-        backgroundColor: '#213945',
-        height: 120,
-        flexDirection: 'row',
-        marginBottom: 5,
-        marginTop: 5
-    },
-    coverCap: {
-        width: 180,
-        height: 120,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end'
-    },
-    containerTimecap: {
-        backgroundColor: 'rgba(0, 0, 0, 0.74)',
-        width: 100,
-        padding: 2,
-        margin: 5
-    },
-    capTime: {
-        color: 'white'
-    },
-    capText: {
-        color: 'white',
-        marginLeft: 10
     },
     titleSeason: {
         color: 'white'

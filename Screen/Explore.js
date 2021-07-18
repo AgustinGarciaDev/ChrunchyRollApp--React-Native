@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ListGender from "../Components/ListGender";
 import ListAnimeExplore from "../Components/ListAnimeExplore";
-
+import { data } from '../data'
 const Tab = createMaterialTopTabNavigator();
 
 const Explore = () => {
@@ -18,7 +18,10 @@ const Explore = () => {
             }}
         >
             <Tab.Screen name="GENEROS" component={ListGender} />
-            <Tab.Screen name="TODO" component={ListAnimeExplore} />
+            <Tab.Screen name="TODO"
+                initialParams={{ arrayItem: data }}
+                component={ListAnimeExplore}
+            />
         </Tab.Navigator>
     )
 }
