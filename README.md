@@ -1,2 +1,2 @@
-# chrunchy-roll - React Native EXPO
+# Chrunchy-roll - React Native CLI
 Aplicación móvil
