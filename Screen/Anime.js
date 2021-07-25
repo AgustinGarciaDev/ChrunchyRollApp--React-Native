@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {
   ImageBackground,
-  Alert,
   Modal,
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  Button,
   ScrollView,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";

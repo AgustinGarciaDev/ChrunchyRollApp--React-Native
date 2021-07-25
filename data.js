@@ -64,7 +64,9 @@ export const data = [
         cover:
           "https://img1.ak.crunchyroll.com/i/spire2-tmb/dfd7bbad9b55b27b0d160b80dbb818f31618229842_wide.jpg",
         urlChapter: "../assets/eterny.mp4",
-        _id: "gg",
+        _id: "1",
+        description:
+          "Un lobo acompaña fielmente a un joven que se quedó solo en su asentamiento mientras su familia se fue en busca del paraíso.",
       },
       {
         title: "S1 E2-Una niña inquieta",
@@ -73,6 +75,8 @@ export const data = [
           "https://img1.ak.crunchyroll.com/i/spire2-tmb/108a437e007b516fedde13427d2af32d1618825084_wide.jpg",
         urlChapter: "../assets/eterny.mp4",
         _id: "2",
+        description:
+          "Un lobo acompaña fielmente a un joven que se quedó solo en su asentamiento mientras su familia se fue en busca del paraíso.",
       },
       {
         title: "S1 E3-Una puqueña evolución",
@@ -81,6 +85,8 @@ export const data = [
           "https://img1.ak.crunchyroll.com/i/spire2-tmb/2fdac4440bb8aeae9cdf318f24a0635d1619434210_wide.jpg",
         urlChapter: "../assets/eterny.mp4",
         _id: "3",
+        description:
+          "Un lobo acompaña fielmente a un joven que se quedó solo en su asentamiento mientras su familia se fue en busca del paraíso.",
       },
       {
         title: "S1 E4-Un enorme recipiente",

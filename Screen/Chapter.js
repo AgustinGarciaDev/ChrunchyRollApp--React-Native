@@ -4,7 +4,6 @@ import {
   Text,
   View,
   ImageBackground,
-  Image,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -15,41 +14,34 @@ import Comments from "../Components/Comments";
 
 const Chapter = props => {
   const [visibleComment, setVisibleComment] = useState(false);
-
-  const [ListChapters, setListChapters] = useState({
-    loading: true,
-    chapters: [],
-  });
+  const [listChapters] = useState(props.route.params.item.Chapter);
   const [chapter, setChapter] = useState(null);
+  const [proxChapter, setProxChapter] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setListChapters({loading: false, chapters: props.route.params.item});
+    loadChapter(props.route.params.id);
   }, []);
 
   const loadChapter = id => {
-    const {chapters} = ListChapters;
-    console.log(chapters.Chapter.length);
-    /* 
-        const chapterFilter = chapters.filter(chapter => chapter._id === id)
-        console.log(chapterFilter) */
+    const chapterFilter = listChapters.find(chapter => chapter._id === id);
+    setChapter(chapterFilter);
+    let currentChapter = listChapters.indexOf(chapterFilter);
+    setProxChapter(listChapters[currentChapter + 1]);
+    setLoading(false);
   };
 
-  if (ListChapters.loading) {
+  if (loading) {
     return <Text>Loading</Text>;
-  } else {
-    loadChapter(props.route.params.id);
   }
 
-  const text =
-    "Un lobo acompaña fielmente a un joven que se quedó solo en su asentamiento mientras su familia se fue en busca del paraíso.";
   const numberComments = 339;
-  const video = require("../assets/eterny.mp4");
 
   return (
     <>
       <View style={styles.videoContainer}>
         <Video
-          source={video}
+          source={{uri: chapter.urlChapter}}
           style={{width: "100%", height: 260}}
           controls={true}
           resizeMode="cover"
@@ -63,7 +55,7 @@ const Chapter = props => {
               <View>
                 <Text style={{color: "#FF6500"}}>To your eternity</Text>
                 <View style={styles.containerTitleAndIcon}>
-                  <Text style={styles.titleChapter}>S2 E1- El ultimo</Text>
+                  <Text style={styles.titleChapter}>{chapter.title}</Text>
                   <Icon
                     style={{marginRight: 10, marginLeft: 10}}
                     name="ellipsis-v"
@@ -78,7 +70,7 @@ const Chapter = props => {
                     marginBottom: 20,
                     marginTop: 10,
                   }}>
-                  {text}
+                  {chapter.description}
                 </Text>
               </View>
               <View>
@@ -105,16 +97,16 @@ const Chapter = props => {
                 <View style={styles.containerCap}>
                   <ImageBackground
                     source={{
-                      uri: "https://img1.ak.crunchyroll.com/i/spire2-tmb/108a437e007b516fedde13427d2af32d1618825084_wide.jpg",
+                      uri: proxChapter.cover,
                     }}
                     resizeMode="cover"
                     style={styles.coverCap}>
                     <View style={styles.containerTimecap}>
-                      <Text style={styles.capTime}>20m restantes</Text>
+                      <Text style={styles.capTime}>{proxChapter.duration}</Text>
                     </View>
                   </ImageBackground>
                   <View style={{justifyContent: "space-between", width: 220}}>
-                    <Text style={styles.capText}>S1 E2-Una niña inquieta</Text>
+                    <Text style={styles.capText}>{proxChapter.title}</Text>
                     <View
                       style={{alignItems: "flex-start", flexDirection: "row"}}>
                       <Icon
