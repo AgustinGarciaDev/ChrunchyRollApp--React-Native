@@ -8,6 +8,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import {createStackNavigator} from "@react-navigation/stack";
 import Anime from "../Screen/Anime";
 import Chapter from "../Screen/Chapter";
+import Search from "../Screen/Search";
+import {TouchableOpacity, TextInput, StyleSheet} from "react-native";
 
 const stack = createStackNavigator();
 
@@ -26,7 +28,7 @@ export const HomeStack = ({navigation}) => {
             <Icon
               name="search"
               color="white"
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Search")}
               style={{marginRight: 10}}
               size={20}
             />
@@ -43,7 +45,7 @@ export const HomeStack = ({navigation}) => {
             <Icon
               name="search"
               color="white"
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Search")}
               style={{marginRight: 10}}
               size={20}
             />
@@ -67,6 +69,18 @@ export const HomeStack = ({navigation}) => {
           title: "",
         }}
       />
+      <stack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity>
+              <TextInput style={styles.input} placeholder="Buscar" />
+            </TouchableOpacity>
+          ),
+          title: "",
+        }}
+      />
     </stack.Navigator>
   );
 };
@@ -86,12 +100,12 @@ export const MyListStack = ({navigation}) => {
             <Icon
               name="search"
               color="white"
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Search")}
               style={{marginRight: 10}}
               size={20}
             />
           ),
-          title: "",
+          title: "Mis listas",
         }}
       />
     </stack.Navigator>
@@ -112,12 +126,12 @@ export const ExploreStack = ({navigation}) => {
             <Icon
               name="search"
               color="white"
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Search")}
               style={{marginRight: 10}}
               size={20}
             />
           ),
-          title: "",
+          title: "Explore",
         }}
       />
     </stack.Navigator>
@@ -138,12 +152,12 @@ export const SimulCastStack = ({navigation}) => {
             <Icon
               name="search"
               color="white"
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Search")}
               style={{marginRight: 10}}
               size={20}
             />
           ),
-          title: "",
+          title: "Temporada de simulcast",
         }}
       />
     </stack.Navigator>
@@ -165,14 +179,21 @@ export const ProfileStack = ({navigation}) => {
             <Icon
               name="search"
               color="white"
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.navigate("Search")}
               style={{marginRight: 10}}
               size={20}
             />
           ),
-          title: "",
+          title: "Mi cuenta",
         }}
       />
     </stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: "white",
+    width: 360,
+  },
+});

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -8,20 +8,16 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-
-const Profile = () => {
+import Icon from "react-native-vector-icons/FontAwesome5";
+const History = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido a Crunchyroll</Text>
+      <Image style={styles.artImg} source={require("../assets/queue.png")} />
+      <Text style={styles.title}>Preparate para hacer historia</Text>
       <Text style={styles.subTitle}>
-        Crea una cuenta o accede con una para poder seguir
+        Crea una cuenta para rellenar tu historial
       </Text>
-      <Text style={styles.subTitle}>viendo el mejor anime donde quieras</Text>
-      <TouchableOpacity style={styles.btnLogin}>
-        <Text style={{fontWeight: "bold"}}>CREAR CUENTA</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.btnLogin}>
+      <TouchableOpacity style={styles.btnSuscription}>
         <Text style={{fontWeight: "bold"}}>CREAR CUENTA</Text>
       </TouchableOpacity>
     </View>
@@ -29,20 +25,24 @@ const Profile = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    flex: 1,
   },
-  subTitle: {
-    color: "white",
-    textAlign: "center",
+  artImg: {
+    width: 250,
+    height: 200,
   },
   title: {
     color: "white",
-    fontSize: 27,
+    fontSize: 20,
   },
-  btnLogin: {
+  subTitle: {
+    color: "white",
+    marginTop: 10,
+  },
+  btnSuscription: {
     backgroundColor: "#FF5C00",
     flexDirection: "row",
     alignItems: "center",
@@ -52,4 +52,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-export default Profile;
+
+export default History;
